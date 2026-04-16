@@ -1,6 +1,6 @@
 {
   "name": "ssh-envoy",
-  "displayName": "ssh-envoy",
+  "displayName": "SSH Envoy",
   "publisher": "zarulizham",
   "description": "Start ssh server using Envoy.blade.php servers",
   "license": "MIT",
