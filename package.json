@@ -12,12 +12,51 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ssh-envoy",
+          "title": "SSH Envoy",
+          "icon": "resources/envoy.svg"
+        }
+      ]
+    },
+    "views": {
+      "ssh-envoy": [
+        {
+          "id": "sshEnvoyServers",
+          "name": "Servers"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "ssh-envoy.helloWorld",
-        "title": "Hello World"
+        "command": "ssh-envoy.connect",
+        "title": "Connect via SSH",
+        "icon": "$(remote)"
+      },
+      {
+        "command": "ssh-envoy.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "ssh-envoy.refresh",
+          "when": "view == sshEnvoyServers",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "ssh-envoy.connect",
+          "when": "view == sshEnvoyServers && viewItem == envoyServer",
+          "group": "inline"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

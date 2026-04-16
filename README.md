@@ -1,71 +1,96 @@
-# ssh-envoy README
+# SSH Envoy
 
-This is the README for your extension "ssh-envoy". After writing up a brief description, we recommend including the following sections.
+`ssh-envoy` is a VS Code extension that reads servers from your Laravel `Envoy.blade.php` file and lets you open SSH sessions directly from the Activity Bar.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- Adds an **SSH Envoy** view container to the Activity Bar.
+- Parses `@servers([...])` entries from `Envoy.blade.php` in the workspace root.
+- Displays each server as a tree item with host details.
+- Connects with one click (or context action) using `ssh <host>` in a new integrated terminal.
+- Refreshes automatically when `Envoy.blade.php` changes and supports manual refresh.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- A workspace containing `Envoy.blade.php` at the root.
+- An `@servers` block using key/value pairs, for example:
+
+```php
+@servers(['web' => 'deploy@example.com', 'worker' => 'ubuntu@10.0.0.12'])
+```
+
+- SSH available in your shell environment.
+
+## Usage
+
+1. Open a project that contains `Envoy.blade.php`.
+2. Open the **SSH Envoy** view from the Activity Bar.
+3. Select a server to start an SSH terminal session.
+4. Use the refresh action in the view title if needed.
+
+## Commands
+
+- `ssh-envoy.connect`: Connect via SSH for the selected server.
+- `ssh-envoy.refresh`: Reload servers from `Envoy.blade.php`.
+
+## Build And Install Locally (VSIX)
+
+Follow these steps to generate the VSIX package yourself and install it in VS Code.
+
+1. Open a terminal in this extension folder.
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Package the extension (choose one):
+
+```bash
+npx @vscode/vsce package
+```
+
+or, if `vsce` is already installed globally:
+
+```bash
+vsce package
+```
+
+4. Confirm the generated file exists in the project root:
+
+```bash
+ls ssh-envoy-*.vsix
+```
+
+5. Install the VSIX into VS Code:
+
+```bash
+code --install-extension ssh-envoy-0.0.1.vsix
+```
+
+6. Reload VS Code when prompted, or run:
+
+```bash
+code --reuse-window .
+```
+
+Optional uninstall command:
+
+```bash
+code --uninstall-extension ssh-envoy
+```
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This extension currently does not contribute custom settings.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Only the first workspace folder is scanned in multi-root workspaces.
+- Parsing expects `@servers([...])` in a straightforward key/value format.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- Initial release with Envoy server discovery, tree view integration, refresh support, and one-click SSH connect.
