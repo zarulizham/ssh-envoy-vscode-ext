@@ -1,7 +1,13 @@
 {
   "name": "ssh-envoy",
   "displayName": "ssh-envoy",
+  "publisher": "zarulizham",
   "description": "Start ssh server using Envoy.blade.php servers",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zarulizham/ssh-envoy-vscode-ext.git"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.116.0"
