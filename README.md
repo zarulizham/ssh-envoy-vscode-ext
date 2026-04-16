@@ -1,10 +1,10 @@
-# SSH Envoy
+# Laravel Envoy - SSH
 
-`ssh-envoy` is a VS Code extension that reads servers from your Laravel `Envoy.blade.php` file and lets you open SSH sessions or run deployment commands directly from the Activity Bar.
+`Laravel Envoy - SSH` is a VS Code extension that reads servers from your Laravel `Envoy.blade.php` file and lets you open SSH sessions or run deployment commands directly from the Activity Bar.
 
 ## Features
 
-- Adds an **SSH Envoy** view container to the Activity Bar.
+- Adds an **Laravel Envoy - SSH** view container to the Activity Bar.
 - Parses `@servers([...])` entries from `Envoy.blade.php` in the workspace root.
 - Splits the panel into **SSH** and **Deployment** sections.
 - Displays each environment as a tree item with host details.
@@ -28,7 +28,7 @@
 ## Usage
 
 1. Open a project that contains `Envoy.blade.php`.
-2. Open the **SSH Envoy** view from the Activity Bar.
+2. Open the **Laravel Envoy - SSH** view from the Activity Bar.
 3. In the **SSH** section, select an environment to start an SSH terminal session.
 4. In the **Deployment** section, select an environment to run the deploy command immediately.
 5. Use the inline rocket action to deploy immediately, or the inline edit action to paste the deploy command without running it.
@@ -100,6 +100,14 @@ This extension currently does not contribute custom settings.
 ## Release Notes
 
 ### 0.0.4
+
+- Updated icon
+
+### 0.0.3
+
+- Updated package name
+
+### 0.0.2
 
 - Fixed local install instructions to use the current VSIX version and the full extension identifier.
 - Added a smoke test that verifies deployment commands are registered after activation.
