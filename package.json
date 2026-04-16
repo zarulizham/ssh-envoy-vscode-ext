@@ -8,21 +8,20 @@
     "type": "git",
     "url": "https://github.com/zarulizham/ssh-envoy-vscode-ext.git"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.116.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
           "id": "ssh-envoy",
-          "title": "SSH Envoy",
+          "title": "Laravel Envoy - SSH",
           "icon": "resources/envoy.svg"
         }
       ]
@@ -31,7 +30,13 @@
       "ssh-envoy": [
         {
           "id": "sshEnvoyServers",
-          "name": "Servers"
+          "name": "SSH",
+          "icon": "$(remote)"
+        },
+        {
+          "id": "sshEnvoyDeployments",
+          "name": "Deployment",
+          "icon": "$(rocket)"
         }
       ]
     },
@@ -45,6 +50,16 @@
         "command": "ssh-envoy.refresh",
         "title": "Refresh",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "ssh-envoy.deploy.execute",
+        "title": "Deploy Now",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "ssh-envoy.deploy.paste",
+        "title": "Paste Deploy Command",
+        "icon": "$(edit)"
       }
     ],
     "menus": {
@@ -53,12 +68,27 @@
           "command": "ssh-envoy.refresh",
           "when": "view == sshEnvoyServers",
           "group": "navigation"
+        },
+        {
+          "command": "ssh-envoy.refresh",
+          "when": "view == sshEnvoyDeployments",
+          "group": "navigation"
         }
       ],
       "view/item/context": [
         {
           "command": "ssh-envoy.connect",
-          "when": "view == sshEnvoyServers && viewItem == envoyServer",
+          "when": "view == sshEnvoyServers && viewItem == envoySshEnvironment",
+          "group": "inline"
+        },
+        {
+          "command": "ssh-envoy.deploy.execute",
+          "when": "view == sshEnvoyDeployments && viewItem == envoyDeploymentEnvironment",
+          "group": "inline"
+        },
+        {
+          "command": "ssh-envoy.deploy.paste",
+          "when": "view == sshEnvoyDeployments && viewItem == envoyDeploymentEnvironment",
           "group": "inline"
         }
       ]

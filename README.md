@@ -1,13 +1,16 @@
 # SSH Envoy
 
-`ssh-envoy` is a VS Code extension that reads servers from your Laravel `Envoy.blade.php` file and lets you open SSH sessions directly from the Activity Bar.
+`ssh-envoy` is a VS Code extension that reads servers from your Laravel `Envoy.blade.php` file and lets you open SSH sessions or run deployment commands directly from the Activity Bar.
 
 ## Features
 
 - Adds an **SSH Envoy** view container to the Activity Bar.
 - Parses `@servers([...])` entries from `Envoy.blade.php` in the workspace root.
-- Displays each server as a tree item with host details.
-- Connects with one click (or context action) using `ssh <host>` in a new integrated terminal.
+- Splits the panel into **SSH** and **Deployment** sections.
+- Displays each environment as a tree item with host details.
+- Connects with one click (or inline action) using `ssh <host>` in a new integrated terminal.
+- Runs `./vendor/bin/envoy run deploy --env=<environment>` directly from the Deployment section.
+- Lets you paste the deployment command into a terminal without executing it, so you can edit it first.
 - Refreshes automatically when `Envoy.blade.php` changes and supports manual refresh.
 
 ## Requirements
@@ -20,17 +23,22 @@
 ```
 
 - SSH available in your shell environment.
+- `./vendor/bin/envoy` available in the workspace if you want to use the Deployment section.
 
 ## Usage
 
 1. Open a project that contains `Envoy.blade.php`.
 2. Open the **SSH Envoy** view from the Activity Bar.
-3. Select a server to start an SSH terminal session.
-4. Use the refresh action in the view title if needed.
+3. In the **SSH** section, select an environment to start an SSH terminal session.
+4. In the **Deployment** section, select an environment to run the deploy command immediately.
+5. Use the inline rocket action to deploy immediately, or the inline edit action to paste the deploy command without running it.
+6. Use the refresh action in either section if needed.
 
 ## Commands
 
 - `ssh-envoy.connect`: Connect via SSH for the selected server.
+- `ssh-envoy.deploy.execute`: Run the deployment command for the selected environment.
+- `ssh-envoy.deploy.paste`: Paste the deployment command for the selected environment without executing it.
 - `ssh-envoy.refresh`: Reload servers from `Envoy.blade.php`.
 
 ## Build And Install Locally (VSIX)
@@ -65,7 +73,7 @@ ls ssh-envoy-*.vsix
 5. Install the VSIX into VS Code:
 
 ```bash
-code --install-extension ssh-envoy-0.0.1.vsix
+code --install-extension ./ssh-envoy-0.0.4.vsix
 ```
 
 6. Reload VS Code when prompted, or run:
@@ -77,7 +85,7 @@ code --reuse-window .
 Optional uninstall command:
 
 ```bash
-code --uninstall-extension ssh-envoy
+code --uninstall-extension zarulizham.ssh-envoy
 ```
 
 ## Extension Settings
@@ -91,6 +99,12 @@ This extension currently does not contribute custom settings.
 
 ## Release Notes
 
+### 0.0.4
+
+- Fixed local install instructions to use the current VSIX version and the full extension identifier.
+- Added a smoke test that verifies deployment commands are registered after activation.
+- Made activation resilient when a development copy and an installed copy of the extension are both loaded.
+
 ### 0.0.1
 
-- Initial release with Envoy server discovery, tree view integration, refresh support, and one-click SSH connect.
+- Initial release with Envoy server discovery, tree view integration, refresh support, one-click SSH connect, and deployment actions.
